@@ -1,0 +1,164 @@
+*{
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0px;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+}
+h1{
+    width: 100%;
+    padding: 0.5em;
+    height: 15%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.main{
+    width: 100%;
+    height: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.italics{
+    font-style: italic;
+}
+.welcome-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.proceed{
+    width: 98%;
+    padding: 0.3em;
+    margin: 0 auto;
+}
+.proceed:hover{
+    background-color: black;
+    color: white;
+    padding: 0.5em;
+}
+.quiz{
+    display: grid;
+    grid-template-rows:15% auto 10%;
+    grid-gap: 10px; 
+    width: 300px; 
+    border: 1px solid black;
+}
+.section{
+    width: 85%;
+    height: 95%;
+    display: none;
+    box-shadow: 10px 10px 10px black;
+}
+.active{
+    display: flex;
+}
+.show{
+    display: grid;
+}
+.welomeform{
+    padding: 2em;
+    box-shadow: 10px 10px 10px grey;
+}
+.inputSection{
+    padding: 0.3em;
+}
+.inputSection label{
+    display: block;
+}
+.inputSection label:hover, .answers label:hover{
+    box-shadow: 5px 5px 5px black;
+    padding: 0.4em;
+}
+.genderClass, .option{
+    display: inline-block;
+    padding: 0.3em;
+    margin: 0.2em;
+    cursor: pointer;
+}
+.inputSection input[type="text"]{
+    border: 1px solid black;
+    padding: 0.3em;
+}
+.inputSection input[type='radio'], .answers input[type='radio']{
+    display:none;
+}
+.inputSection .input[type="text"]:focus{
+    box-shadow: 3px 3px 3px solid pink;
+}
+.inputSection input[type='radio']:checked + label,.answers input[type='radio']:checked + label {
+    box-shadow: 5px 5px 5px black;
+}
+.topnav{
+    width: 100%;
+    display: flex;   
+    justify-content: space-between;
+    font-size: 1.3em;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+.topnav .username{
+    padding: 0.5em;
+    text-transform: uppercase;
+}
+.topnav .reset{
+    padding: 0.5em;
+}
+.dynamic{
+    padding: 2em;
+    width: 100%;
+    height: auto;
+    overflow: scroll;
+}
+.question{
+    padding: 0.5em;
+    margin:0 auto;
+    text-transform: uppercase;
+    text-align: center;
+    width: 70%;
+    font-size: 1.2em;
+}
+.answers{
+    padding: 0.5em;
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+}
+.option{
+    display: block;
+    padding: 0.3em;
+    margin: 0.5em;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+.number{
+    text-align: center;
+}
+.controls{
+    width: 98%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+.control {
+    padding: 10px; /* Adjust the padding as needed */
+    cursor: pointer;
+}
+#previous{
+    left:0;
+}
+#next{
+    margin-left:95%;
+}
+.welcome-form h3{
+    display: block;
+}
+.save{
+    padding: 0.5em;
+    background-color: green;
+    color: white;
+    
+}
