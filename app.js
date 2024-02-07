@@ -6,7 +6,9 @@ function displayUsername(){
         data:{getusername:"getusername"},
         success:function(data){
             console.log(data);
-            $(".username").text(data);
+            user = JSON.parse(data);
+            $(".username").text(user.username);
+            $(".gender").html(user.gender);
         },
         error:function(data){
             console.log(data);
@@ -18,31 +20,35 @@ $(document).ready(function(){
        e.preventDefault();
     });
     $(".main").on("submit", "#user-data", function(e){
-        let username = $("#username").val();
+        let userDetails = $(this).serialize();
         let gender = $('input[name="gender"]:checked').val();
-        console.log(gender);
-        if (username!="" && gender!=undefined) {
-            $.ajax({
-                url:"processor.php",
-                method:"POST",
-                data:{name:username,
-                     gender:gender
+        if (gender!=undefined) {
+            //console.log(userDetails);
+            if (userDetails!=undefined) {
+                $.ajax({
+                    url:"processor.php",
+                    method:"POST",
+                    data:userDetails,
+                    success:function(data){
+                        $(".dynamic").html(data);
+                        console.log(data);
+                        $(".welcome-form").toggleClass("active");
+                        $(".quiz").toggleClass("show");
+                        console.log(data);
+                        $(".username").text(data);
+                        displayUsername();
                     },
-                success:function(data){
-                    $(".dynamic").html(data);
-                    console.log("data");
-                    $(".welcome-form").toggleClass("active");
-                    $(".quiz").toggleClass("show");
-                    console.log(data);
-                    displayUsername();
-                },
-                error:function(data){
-                    console.log(data);
-                }
-            });  
+                    error:function(data){
+                        console.log(data);
+                    }
+                });  
+            }
+            else{
+                alert("Kindly Fill All The Fields");
+            }
         }
         else{
-            alert("Kindly Fill All The Fields");
+            alert("Kindly Select Your Gender");
         }
      });
      //Manual Navigation
@@ -110,6 +116,13 @@ $(document).ready(function(){
         error:function(data){
             console.log(data);
         }
+        });
     });
-     });
+    //Analysis
+    $("body").on("click", "#analyse", function(){
+        let analysis = $("#analysis");
+        console.log(analysis)
+        $(analysis).toggle();
+        $(".dynamic").replaceWith(analysis);
+    });
 });

@@ -23,17 +23,21 @@ h1{
 .italics{
     font-style: italic;
 }
-.welcome-form {
+.welcome-form, .analysis{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.analysis{
+    overflow-y: scroll;
+    margin-left: 5%;
 }
 .proceed{
     width: 98%;
     padding: 0.3em;
     margin: 0 auto;
 }
-.proceed:hover{
+.proceed:hover, .analyse{
     background-color: black;
     color: white;
     padding: 0.5em;
@@ -98,11 +102,19 @@ h1{
     text-align: center;
     letter-spacing: 0.1em;
 }
+.topnav .user-details{
+    display: flex;
+}
 .topnav .username{
     padding: 0.5em;
-    text-transform: uppercase;
+    text-align: left;
 }
-.topnav .reset{
+.topnav .gender{
+    padding: 0.5em;
+    text-align: center;
+    vertical-align: middle;
+}
+.username .reset{
     padding: 0.5em;
 }
 .dynamic{
@@ -137,14 +149,13 @@ h1{
 }
 .controls{
     width: 98%;
-    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
 }
 .control {
-    padding: 10px; /* Adjust the padding as needed */
+    padding: 10px;
     cursor: pointer;
 }
 #previous{
@@ -160,5 +171,4 @@ h1{
     padding: 0.5em;
     background-color: green;
     color: white;
-    
 }

@@ -94,8 +94,12 @@ function getGenderOptions($genders){
         else if($gender == "Female"){
             $icon = '<i class="fa-solid fa-person-dress"></i>';
         }
-        else{
+        
+        else if($gender == "Trans"){
             $icon = '<i class="fa-solid fa-transgender"></i>';
+        }
+        else{
+            $icon = '<i class="fa-solid fa-genderless"></i>';
         }
         ?>
         <label class="genderClass" for="<?php echo $gender ?>"><?php echo "$icon $gender" ?></label>
@@ -209,6 +213,35 @@ function getTotal($questions){
     $total += $remaindertotal;
     return $total;
 }
+function getInference($result){
+    $gender = $_SESSION['gender'];
+    if ($gender=="Male") {
+        if ($result<=180 && $result>=0) {
+            $inference = "You're on The Masculine side of life💪";
+        }
+        elseif($result<0){
+            $inference = "Testerone Levels Off the Roof!!🧔🏽";
+        }
+        else{
+            $inference = "Boy Don't I Have News for you.🧏‍♂️";
+        }
+    }
+    elseif ($gender=="Female") {
+        if ($result>=150 and $result<=300) {
+            $inference  = "You Majorly have Feminine Traits✨";
+        }
+        else if($result>300){
+            $inference = "Super Feminine👩🏽";
+        }
+        else{
+            $inference = "Link Up With The Boys A.S.A.P😂";
+        }
+    }
+    else {
+        $inference = "Check Result Analysis for Clarification";
+    }
+    return $inference;
+}
 function saveResult($con, $username, $gender, $email, $result){
     $gender = 1;
     $saveResult = mysqli_query($con, "INSERT INTO `results` (`User ID`, `NAME`, `EMAIL`, `GENDER`, `RESULT`, `DATE`)
@@ -225,19 +258,36 @@ function saveResult($con, $username, $gender, $email, $result){
      }
 
 }
-if(isset($_POST['name']) /*&& isset($_POST['gender'])*/){
-    $username = $_POST['name'];
+if(isset($_POST['username']) && isset($_POST['gender'])){
+    $username = $_POST['username'];
     $gender = $_POST['gender'];
     $number = 1;
+    if ($gender=="Male") {
+        $icon = '<i class="fa-solid fa-person"></i>';
+    }
+    else if($gender == "Female"){
+        $icon = '<i class="fa-solid fa-person-dress"></i>';
+    }
+    
+    else if($gender == "Trans"){
+        $icon = '<i class="fa-solid fa-transgender"></i>';
+    }
+    else{
+        $icon = '<i class="fa-solid fa-genderless"></i>';
+    }
     $_SESSION['number'] = $number;
     $_SESSION['username'] = $username;
+    $_SESSION['gender'] = $gender;
+    $_SESSION['icon'] = $icon;
     
     getQuestion($questions, $answers);
 }
-if (isset($_POST['getusername'])) {
-    $_SESSION['majribu'] = "Teshting";
-    $username = $_SESSION['majribu'];
-    echo $_SESSION['majribu'];
+if(isset($_POST['getusername'])){
+    $username = $_SESSION['username'];
+    $gender = $_SESSION['icon'];
+    $response = ['username'=>$username, 'gender'=>$gender];
+    $response = json_encode($response);
+    echo $response;
 }
 if(isset($_POST['action'])){
     $action = $_POST['action'];
@@ -262,19 +312,17 @@ if(isset($_POST['selectedAnswer'])) {
         <h1>Time for results</h1>
         <?php
         $username = mysqli_real_escape_string($con, $_SESSION['username'] );
-       // $gender = mysqli_real_escape_string($con, $_SESSION['gemder'] );
-        $gender =1;
+        $gender = mysqli_real_escape_string($con, $_SESSION['gender'] );
+        
        //$email = mysqli_real_escape_string($con, $_SESSION['email'] );
         $result = getTotal($questions);
-        echo $result;
-        echo $username;
-        echo "Answered Questions".count($_SESSION['answers'])."/".count($questions);
+        echo $username."<br>";
+        echo "Answered Questions".count($_SESSION['answers'])."/".count($questions)."<br>";
         ?>
-        <p id="points">Total Points: <?php $result?></p>
-        <?php
-        echo getTotal($questions);
-        ?>
+        <p id="points">Total Points: <?php echo $result?></p>
+        <p id="inference"><?php echo getInference($result)?></p>
         <button id= "save" class="save">Save Result</button>
+        <button id= "analyse" class="analyse">Result Analysis</button>
     </div>
     <?php
     }
